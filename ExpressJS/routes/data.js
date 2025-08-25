@@ -29,4 +29,18 @@ router.get('/id/:id', (req, res) => {
     res.status(404).send('Not Found!');
 })
 
-export default router;;
+router.post('/', (req, res) => {
+    const newData = {
+        id: database.length + 1,
+        name: req.body.name,
+        age: req.body.age
+    };
+    if(!(newData.name)) {
+        return res.status(400).json({ msg: 'Req Failed!' });
+    }
+    database.push(newData);
+    console.log(`New data added! ${JSON.stringify(newData)}`);
+    res.status(201).json(database);
+})
+
+export default router;
